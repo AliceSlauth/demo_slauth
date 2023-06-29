@@ -1,0 +1,25 @@
+provider "aws" {
+  region = "eu-north-1"
+}
+
+resource "aws_s3_bucket" "bucket" {
+  bucket = "sample-bucket-test-terraform-slauth"
+  acl    = "private"
+
+  tags = {
+    Name        = "My bucket"
+    Environment = "Dev"
+  }
+}
+resource "aws_sqs_queue" "queue" {
+  name                      = "sample-queue-slauth"
+  delay_seconds             = 90
+  max_message_size          = 2048
+  message_retention_seconds = 86400
+  visibility_timeout_seconds= 60
+
+  tags = {
+    Name        = "My queue"
+    Environment = "Dev"
+  }
+}
